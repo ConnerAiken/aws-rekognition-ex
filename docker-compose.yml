@@ -1,0 +1,11 @@
+services:
+  server: 
+    image: hdgigante/python-opencv
+    command: ["bash", "./build.sh"]
+    working_dir: /code 
+    volumes:
+      - "./:/code"
+    ports:
+      - "3000:3000"
+    environment: 
+      LOG_LEVEL: debug 
