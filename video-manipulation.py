@@ -1,15 +1,17 @@
 import cv2
 
-# Read an image as greyscale
-image = cv2.imread('demo_images/gameplay.jpg', cv2.IMREAD_GRAYSCALE)
+# Cascades
+haar_cascade = 'cascade_model/classifier/stage0.xml'
+video = 'demo_vides/break.mp4'
+    
+cap = cv2.VideoCapture(video)
+car_cascade = cv2.CascadeClassifier(haar_cascade)
 
-# Save the image
-cv2.imwrite('demo_images/gameplay-greyscale.jpg', image)
-
-# Read an image as HSV
-image = cv2.imread('demo_images/gameplay.jpg', cv2.COLOR_BGR2HSV)
-
-# Save the image
-cv2.imwrite('demo_images/gameplay-hsv.jpg', image)
-
- 
+# reads frames from a video
+ret, frames = cap.read()
+      
+# convert frames to gray scale 
+gray = cv2.cvtColor(frames, cv2.COLOR_BGR2GRAY)
+      
+# Detects cars of different sizes in the input image
+cars = car_cascade.detectMultiScale(gray, 1.1, 1)
